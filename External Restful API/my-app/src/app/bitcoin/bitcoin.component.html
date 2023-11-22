@@ -1,0 +1,33 @@
+<!-- bitcoin.component.html -->
+<div *ngIf="bitcoinData">
+    <h3 class="text-center text-white bg-dark p-3">Bitcoin</h3>
+    <div class="container">
+      <p>Last updated: {{ bitcoinData.time.updated }}</p>
+      <p>Disclaimer: {{ bitcoinData.disclaimer }}</p>
+      <p>Chart Name: {{ bitcoinData.chartName }}</p>
+  
+      <table class="table table-hover" border="1" style="border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th>Currency</th>
+            <th>Code</th>
+            <th>Symbol</th>
+            <th>Rate</th>
+            <th>Description</th>
+            <th>Rate Float</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let currency of getBpiCurrencies()">
+            <td>{{ currency }}</td>
+            <td>{{ bitcoinData.bpi[currency].code }}</td>
+            <td>{{ bitcoinData.bpi[currency].symbol }}</td>
+            <td>{{ bitcoinData.bpi[currency].rate }}</td>
+            <td>{{ bitcoinData.bpi[currency].description }}</td>
+            <td>{{ bitcoinData.bpi[currency].rate_float }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
