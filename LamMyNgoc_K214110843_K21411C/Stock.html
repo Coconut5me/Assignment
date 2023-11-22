@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Information</title>
+    <style>
+        #stockContainer {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: lightsalmon;
+        }
+    </style>
+    <script>
+        // JavaScript code for fetching and displaying data
+        function displayStockData() {
+            // Get references to the table and tbody in the HTML
+            var stockTable = document.getElementById("stockTable");
+            var tbody = stockTable.querySelector("tbody");
+
+            // Create an XMLHttpRequest object
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "https://gadgets.dantri.com.vn/api/finance/stocks", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Parse the JSON data from the API
+                    var data = JSON.parse(xhr.responseText);
+
+                    // Loop through the data and create rows for the table
+                    for (var i = 0; i < data.length; i++) {
+                        var row = document.createElement("tr");
+
+                        // Create a cell for "Code"
+                        var codeCell = document.createElement("td");
+                        codeCell.textContent = data[i].code;
+                        row.appendChild(codeCell);
+
+                        // Create a cell for "Price"
+                        var priceCell = document.createElement("td");
+                        priceCell.textContent = data[i].price;
+                        row.appendChild(priceCell);
+
+                        // Add the row to the tbody
+                        tbody.appendChild(row);
+                    }
+                }
+            };
+
+            // Send a request to the API
+            xhr.send();
+        }
+    </script>
+</head>
+<body>
+    <div id="stockContainer">
+        <h3>Stock Information</h3>
+        <table id="stockTable">
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <script>
+        // Call the function to display stock data
+        displayStockData();
+    </script>
+</body>
+</html>

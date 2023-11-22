@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer</title>
+    
+    <!-- Add placeholders for dynamic content -->
+    <script>
+        var studentName = "Lam My Ngoc"; // Replace with the student's full name
+        var currentDate = new Date().toLocaleDateString();
+    </script>
+</head>
+
+<body>
+    <hr>
+    <div class="footer" style="text-align: left;">
+        <p>Designed by Student <span id="span-author"></span>, today is <span id="span-today"></span></p>
+    </div>
+
+    <script>
+        // JavaScript code to update the student name and current date
+        document.getElementById("span-author").textContent = studentName;
+        document.getElementById("span-today").textContent = currentDate;
+    </script>
+</body>
+
+</html>

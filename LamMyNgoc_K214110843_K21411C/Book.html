@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Define CSS classes to make the columns narrower and add borders */
+        .narrow-column {
+            width: 30%; /* Set the desired width for the first and middle columns */
+            border: 1px solid #000; /* Add a border to the cells */
+            padding: 10px; /* Add some padding for spacing */
+        }
+        
+        .image-column {
+            width: 40%; /* Set the desired width for the image column */
+            border: 1px solid #000; /* Add a border to the cells */
+            padding: 10px; /* Add some padding for spacing */
+        }
+        
+        table {
+            border-collapse: collapse; /* Collapse borders into a single border for the table */
+            width: 100%; /* Make the table span the full width of its container */
+        }
+        
+        th, td {
+            border: 1px solid #000; /* Add borders to table headers and data cells */
+            padding: 10px; /* Add some padding for spacing */
+        }
+    </style>
+    <script>
+        function loadData() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "Book.xml", true);
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    //use DOM here
+                    var xmlDoc = xhr.responseXML;
+                    var books = xmlDoc.getElementsByTagName("book");
+
+                    var table = document.createElement("table");
+
+                    // Create table header row
+                    var headerRow = table.createTHead().insertRow(0);
+                    var headerCell1 = document.createElement("th");
+                    headerCell1.innerHTML = "Name";
+                    var headerCell2 = document.createElement("th");
+                    headerCell2.innerHTML = "Description";
+                    var headerCell3 = document.createElement("th");
+                    headerCell3.innerHTML = "Image";
+                    headerRow.appendChild(headerCell1);
+                    headerRow.appendChild(headerCell2);
+                    headerRow.appendChild(headerCell3);
+
+                    for (var i = 0; i < books.length; i++) {
+                        var name = books[i].getElementsByTagName("name")[0].textContent;
+                        var description = books[i].getElementsByTagName("description")[0].textContent;
+                        var image = books[i].getElementsByTagName("image")[0].textContent;
+
+                        var row = table.insertRow(i + 1); // +1 for the header row
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                        var cell3 = row.insertCell(2);
+
+                        cell1.innerHTML = "<h3>" + name + "</h3>";
+                        cell2.innerHTML = description;
+                        cell3.innerHTML = "<img src='" + image + "' alt='" + name + "' width='40%' height='40%'>";
+                        
+                        // Apply the CSS classes to the columns
+                        cell1.classList.add("narrow-column");
+                        cell2.classList.add("narrow-column");
+                        cell3.classList.add("image-column");
+                    }
+
+                    var resultDiv = document.getElementById("result");
+                    resultDiv.appendChild(table);
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="result"></div>
+    <script>
+        loadData();
+    </script>
+</body>
+</html>

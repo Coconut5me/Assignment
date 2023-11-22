@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        th {
+            text-align: left;
+        }
+        td {
+            padding: 15pt;
+        }
+    </style>
+    <script>
+        var txt = "<student>";
+        txt += "<id>K214110843</id>";
+        txt += "<name>Lam My Ngoc</name>";
+        txt += "<classname>K21411C</classname>";
+        txt += "</student>"; 
+    </script>
+    <script>
+        var parser=new DOMParser()
+        var xmlDoc=parser.parseFromString(txt,"text/xml")
+        var id=xmlDoc.getElementsByTagName("id")[0].childNodes[0].nodeValue
+        var name=xmlDoc.getElementsByTagName("name")[0].childNodes[0].nodeValue
+        var classname=xmlDoc.getElementsByTagName("classname")[0].childNodes[0].nodeValue
+    </script>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <th>Student ID</th>
+            <td id="tdid"></td>
+        </tr>
+        <tr>
+            <th>Student Name</th>
+            <td id="tdname"></td>
+        </tr>
+        <tr>
+            <th>Class Name</th>
+            <td id="tdclassname"></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center;">
+                <img src="img/LMN.png" 
+                alt="no image"
+                width="30%"></td>
+        </tr>
+    </table>
+    <script>
+        tdid=document.getElementById("tdid")
+        tdid.innerHTML=id
+        tdname=document.getElementById("tdname")
+        tdname.innerHTML=name
+        tdclassname=document.getElementById("tdclassname")
+        tdclassname.innerHTML=classname
+    </script>
+</body>
+
+</html>
